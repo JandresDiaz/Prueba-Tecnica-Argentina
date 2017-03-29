@@ -1,0 +1,38 @@
+extends layout
+
+block content
+
+        
+  article
+    h1 #{title}
+    
+    .addCommentForm
+          form( method="post", action="/api/entries")
+              div
+                  div
+                      span.label Hotel :
+                      input(name="Hotel")
+                  div
+                      span.label Estrellas :
+                      input(name="Estrellas")
+                  div
+                      span.label Precio :
+                      input(name="Precio")
+                  div#addCommentSubmit
+                      input(type="submit", value="Guardar")
+
+    #entries
+      - each entry in entries
+          .entry(style="padding:9%;border:1px solid #51b6ae ")
+            span #{entry}
+            br
+
+            a#api(href='api/#{entry.id}', style="display:inline-block")
+              input(type='submit', value='ver JSON')
+            a#api(href='api/entries/#{entry.id}', style="display:inline-block")
+              input(type='submit', value='ver API')
+            input.del(type='submit', value='Borrar', data-id='#{entry.id}')
+
+block body
+  style
+    include style2.css
